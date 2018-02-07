@@ -1,6 +1,7 @@
 @import '~normalize.css/normalize';
 @import url('https://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 $primary-bg-color: #E64A19;
 
@@ -46,4 +47,83 @@ $primary-bg-color: #E64A19;
     text-transform: uppercase;
     background-color: $primary-bg-color;
     font-size:1.3em;
+}
+
+.content__body {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.panel {
+  margin:40px 20px 0 20px;
+}
+
+.panel--light .panel__title {
+  background-color: #FFCCBC;
+}
+
+.panel__title {
+  font-size:1.25em;
+  font-family: 'Montserrat', sans-serif;
+  background-color: $primary-bg-color;
+  padding:6px;
+  margin:0;
+}
+
+.panel__body {
+  padding: 10px;
+  border:2px solid #e2e2e2;
+}
+
+#panel-actions, #panel-databases {
+  flex-basis:1340px;
+}
+
+.panel__button {
+  outline:none;
+  background-color:$primary-bg-color;
+  padding:9px;
+  font-family: 'Montserrat', sans-serif;
+  border:0;
+  border-radius: 4px;
+}
+
+.panel__button--disabled {
+  background-color: #BF360C;
+}
+
+.panel__button:hover {
+  background-color: #BF360C;
+}
+
+.panel__table {
+  width:100%;
+  background-color:#efefef;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.panel__table thead {
+  background-color:#757575;
+}
+
+.panel__table th, .panel__table tr {
+  padding:4px;
+}
+
+.panel__input {
+  outline:none;
+  background-color:#efefef;
+  padding:9px;
+  font-family: 'Montserrat', sans-serif;
+  border:0;
+  margin:0 5px 0 0;
+  border-radius: 4px;
+}
+
+.panel__nav {
+  margin-top:10px;
+}
+
+.float-right {
+  float:right;
 }
