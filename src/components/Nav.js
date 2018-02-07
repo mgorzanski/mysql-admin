@@ -1,7 +1,6 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faDatabase, faSlidersH, faWindowMaximize, faSignOutAlt } from '@fortawesome/fontawesome-free-solid';
-import { faWpforms } from '@fortawesome/fontawesome-free-brands';
 
 class Nav extends React.Component {
     render() {

@@ -1,5 +1,6 @@
 @import '~normalize.css/normalize';
 @import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 .primary-nav {
     float:left;
@@ -35,33 +36,12 @@
     width: 100vw;
 }
 
-.content__top {
-    display:flex;
-    background-color: #ca1b1b;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    justify-content: space-between;
-    line-height: 1.8em;
-}
-
 .content__title {
-    padding:0 0 0 3px;
-}
-
-.content__menu {
-    margin:0;
-    padding:0;
-    list-style: none;
-}
-
-.content__menu li {
-    float:left;
-}
-
-.content__menu li a {
-    background-color: #1d1d1d;
-    padding:6px;
-    color:#c4c4c4;
-    text-decoration: none;
+    display:flex;
+    font-weight: bold;
+    padding:9px;
+    font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
+    background-color: #E64A19;
+    font-size:1.3em;
 }

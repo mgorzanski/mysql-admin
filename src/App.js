@@ -8,13 +8,7 @@ class App extends Component {
       <div className="App">
         <Nav />
         <main className="content">
-          <nav className="content__top">
-            <div className="content__title">Home</div>
-              <ul className="content__menu">
-                <li><a href="#">Logout</a></li>
-              </ul>
-          </nav>
-
+          <div className="content__title">Home</div>
           <section className="content__body">
 
           </section>
