@@ -1,4 +1,3 @@
 module.exports = {
-	'secret': 'notebookforsure',
-	'database': 'mongodb://localhost'
+	'secret': 'pwaforsure'
 };

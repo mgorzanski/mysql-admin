@@ -1,56 +1,41 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-// const mongoose = require('mongoose');
-const MongoClient = require('mongodb').MongoClient;
+const mysql = require('mysql');
 const assert = require('assert');
 
 const jwt = require('jsonwebtoken');
 const config = require('./config');
-//const User = require('./app/models/User');
 
 const port = process.env.PORT || 8080;
-//mongoose.connect(config.database);
 app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(morgan('dev'));
-
-const dbName = 'simple-notebook';
-let db;
-MongoClient.connect(config.database, function (err, client) {
-	assert.equal(null, err);
-	console.log("Connected successfully to server");
-	db = client.db(dbName);
-});
-
-app.get('/', function (req, res) {
-	res.send('Hello! The API is at http://localhost:' + port + '/api');
-});
-
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);
 
-app.get('/setup', function (req, res) {
-	var user = new User({
-		name: 'Mateusz Górzański',
-		email: 'gorzanski.mateusz@gmail.com',
-		password: 'zaq1',
+app.post('/connect', function (req, res) {
+	let connection = mysql.createConnection({
+		host : req.body.host,
+		user : req.body.user,
+		password : req.body.password
 	});
 
-	user.save(function (err) {
-		if (err) throw err;
+	connection.connect(function (err) {
+		if(err) {
+			console.error('Error connecting to MySQL: ' + err.stack);
+			res.json({ connected: false });
+			return;
+		}
 
-		console.log('User saved successfully');
-		res.json({ success: true });
+		console.log('Connected to MySQL as id ' + connection.threadId);
+		res.json({ connected: true });
 	});
+
+	connection.end();
 });
-
-const apiRoutes = express.Router();
-
 // apiRoutes.use(function (req, res, next) {
 // 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -71,54 +56,32 @@ const apiRoutes = express.Router();
 // 	}
 // });
 
-apiRoutes.post('/notes/new', function (req, res) {
-	let Note = db.collection('Note');
-	console.log(req.body.name);
-	Note.insert({
-		"NoteName" : req.body.name,
-		"NoteBody" : req.body.body
-	});
-	res.send(JSON.stringify({message: "Success"}));
-});
+// app.post('/authenticate', function (req, res) {
+// 	User.findOne({
+// 		name: req.body.name
+// 	}, function (err, user) {
+// 		if (err) throw err;
 
-apiRoutes.get('/', function (req, res) {
-	res.json({ message: 'Welcome to the coolest API on earth!' });
-});;
+// 		if (!user) {
+// 			res.json({ success: false, message: 'Authentication failed. User not found.' });
+// 		} else if (user) {
+// 			if (user.password != req.body.password) {
+// 				res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+// 			} else {
+// 				const payload = {
+// 					name: user.name
+// 				};
 
-apiRoutes.get('/users', function (req, res) {
-	User.find({}, function (err, users) {
-		res.json(users);
-	});
-});
+// 				var token = jwt.sign(payload, app.get('superSecret'), {
+// 					expiresIn: '1440m'
+// 				});
 
-apiRoutes.post('/authenticate', function (req, res) {
-	User.findOne({
-		name: req.body.name
-	}, function (err, user) {
-		if (err) throw err;
-
-		if (!user) {
-			res.json({ success: false, message: 'Authentication failed. User not found.' });
-		} else if (user) {
-			if (user.password != req.body.password) {
-				res.json({ success: false, message: 'Authentication failed. Wrong password.' });
-			} else {
-				const payload = {
-					name: user.name
-				};
-
-				var token = jwt.sign(payload, app.get('superSecret'), {
-					expiresIn: '1440m'
-				});
-
-				res.json({
-					success: true,
-					message: 'Enjoy your token!',
-					token: token
-				});
-			}
-		}
-	});
-});
-
-app.use('/api', apiRoutes);
+// 				res.json({
+// 					success: true,
+// 					message: 'Enjoy your token!',
+// 					token: token
+// 				});
+// 			}
+// 		}
+// 	});
+// });
