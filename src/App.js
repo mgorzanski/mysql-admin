@@ -19,6 +19,16 @@ class App extends Component {
     };
   }
 
+  handleConnection = (mysqlHost, mysqlUser, mysqlPassword, mysqlPort, userIsLoggedIn) => {
+    this.setState({
+      mysqlHost,
+      mysqlUser,
+      mysqlPassword,
+      mysqlPort,
+      userIsLoggedIn
+    });
+  }
+
   render() {
     const userIsLoggedIn = this.state.userIsLoggedIn;
 
@@ -37,7 +47,7 @@ class App extends Component {
             </main>
           </React.Fragment>
           ) : (
-            <Login />
+            <Login onUserLogin={this.handleConnection} />
           )}
         </div>
       </Router>
