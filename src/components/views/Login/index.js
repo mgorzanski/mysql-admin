@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import Auth from './../../../auth/Auth';
 
 class Login extends React.Component {
     constructor(props) {
@@ -42,6 +43,7 @@ class Login extends React.Component {
         }).then( (data) => {
             if (data.connected === true) {
                 this.setState({ userIsLoggedIn: true });
+                Auth.authenticateUser(data.token);
                 this.props.onUserLogin(this.state.host, this.state.user, this.state.password, this.state.port, this.state.userIsLoggedIn);
             }
         }).catch( (err) => {

@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Home from './components/views/Home';
 import Databases from './components/views/Databases';
 import Login from './components/views/Login';
+import Auth from './auth/Auth';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,12 @@ class App extends Component {
       mysqlPort: '',
       userIsLoggedIn: false
     };
+  }
+
+  componentWillMount() {
+    if (Auth.tokenExists()) {
+      this.setState({ userIsLoggedIn: true });
+    }
   }
 
   handleConnection = (mysqlHost, mysqlUser, mysqlPassword, mysqlPort, userIsLoggedIn) => {
