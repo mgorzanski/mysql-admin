@@ -53,8 +53,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "electron": "electron ."
   },
+  "main": "electron-starter.js",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
@@ -98,6 +100,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "electron": "^1.8.2",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6"
   },
