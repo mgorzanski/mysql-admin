@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 require('./app/connect')(app);
+require('./app/queries/query')(app);
 require('./app/queries/databases')(app);
 
 app.listen(port);
