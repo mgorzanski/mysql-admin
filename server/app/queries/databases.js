@@ -1,8 +1,7 @@
-//const mysql = require('mysql');
 const connection = require('./../connection');
 
-module.exports = function (app) {
-    app.get('/databases', function (req, res) {
+module.exports = function (router) {
+    router.get('/databases', function (req, res) {
         let conn = connection.getConnection();
 
         conn.query('SHOW DATABASES', function (err, results) {
@@ -11,7 +10,7 @@ module.exports = function (app) {
         });
     });
 
-    app.post('/databases', function (req, res) {
+    router.post('/databases', function (req, res) {
         let conn = connection.getConnection();
         if(req.body.database === undefined) {
             res.status(500).json({ message: "Database name not specified!" });
@@ -26,7 +25,7 @@ module.exports = function (app) {
         });
     });
 
-    app.put('/databases/:databaseName', function (req, res) {
+    router.put('/databases/:databaseName', function (req, res) {
         if (req.params.databaseName === undefined) {
             res.status(500).json({ message: "Database name not specified!" });
             return;

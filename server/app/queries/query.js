@@ -1,7 +1,7 @@
 const connection = require('./../connection');
 
-module.exports = function (app) {
-    app.post('/query', function (req, res) {
+module.exports = function (router) {
+    router.post('/query', function (req, res) {
         if (req.body.query === undefined) {
             res.status(500).json({ message: "No query specified" });
         }

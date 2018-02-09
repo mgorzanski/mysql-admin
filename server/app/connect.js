@@ -1,6 +1,6 @@
 const connection = require('./connection');
 const mysql = require('mysql')
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
     app.post('/connect', function (req, res) {
@@ -20,11 +20,17 @@ module.exports = function (app) {
 
             console.log('Connected to MySQL as id ' + newConenction.threadId + '...');
 
-            //var token = jwt.sign(, app.get('superSecret'))
+            const payload = {
+                host: req.body.host
+            };
+
+            var token = jwt.sign(payload, app.get('superSecret'), {
+                expiresIn: '1440m'
+            });
+
             connection.setConnection(newConenction);
 
-            res.status(200);
-            res.json({ connected: true });
+            res.status(200).json({ connected: true, token: token });
         });
     });
 };
