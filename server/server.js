@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
-const assert = require('assert');
+//const mysql = require('mysql');
+//const assert = require('assert');
 
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 const config = require('./config');
 
 const port = process.env.PORT || 8080;
@@ -13,29 +13,12 @@ app.set('superSecret', config.secret);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+require('./app/connect')(app);
+require('./app/queries/databases')(app);
+
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);
 
-app.post('/connect', function (req, res) {
-	let connection = mysql.createConnection({
-		host : req.body.host,
-		user : req.body.user,
-		password : req.body.password
-	});
-
-	connection.connect(function (err) {
-		if(err) {
-			console.error('Error connecting to MySQL: ' + err.stack);
-			res.json({ connected: false });
-			return;
-		}
-
-		console.log('Connected to MySQL as id ' + connection.threadId);
-		res.json({ connected: true });
-	});
-
-	connection.end();
-});
 // apiRoutes.use(function (req, res, next) {
 // 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
