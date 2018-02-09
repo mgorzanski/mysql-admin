@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Home from './components/views/Home';
 import Databases from './components/views/Databases';
 import Login from './components/views/Login';
+import Logout from './components/Logout';
 import Auth from './auth/Auth';
 
 class App extends Component {
@@ -36,6 +37,12 @@ class App extends Component {
     });
   }
 
+  handleLogout = () => {
+    if (!Auth.tokenExists()) {
+      this.setState({ userIsLoggedIn: false });
+    }
+  }
+
   render() {
     const userIsLoggedIn = this.state.userIsLoggedIn;
 
@@ -44,12 +51,13 @@ class App extends Component {
         <div className="App">
           {userIsLoggedIn ? (
           <React.Fragment>
-            <Nav />
+            <Nav onUserLogout={this.handleLogout} />
             <main className="content">
               <div className="content__title">Home</div>
                 <section className="content__body">
                     <Route exact path="/" component={Home} />
                     <Route path="/databases" component={Databases} />
+                    <Route path="/logout" component={Logout} />
                 </section>
             </main>
           </React.Fragment>

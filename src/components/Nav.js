@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
     render() {
+        const refLogout = node => {
+            this.props.onUserLogout();
+        }
+
         return (
             <nav className="primary-nav">
                 <ul className="primary-nav__primary-menu">
@@ -13,7 +17,7 @@ class Nav extends React.Component {
                     <li><Link to="/sql"><FontAwesomeIcon icon={faWindowMaximize} /> SQL</Link></li>
                     <li><Link to="/users"><FontAwesomeIcon icon={faUsers} /> Users</Link></li>
                     <li><Link to="/settings"><FontAwesomeIcon icon={faSlidersH} /> Settings</Link></li>
-                    <li><Link to="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link></li>
+                    <li><Link to="/logout" innerRef={refLogout}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</Link></li>
                 </ul>
             </nav>
         );
