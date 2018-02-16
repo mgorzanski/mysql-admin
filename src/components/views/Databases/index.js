@@ -1,7 +1,41 @@
 import React from 'react';
+import Auth from './../../../auth/Auth';
 
 class Databases extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            databases: []
+        };
+    }
+
+    componentWillMount() {
+        fetch('/databases?token=' + Auth.getToken(), {
+            method: 'get',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then((res) => {
+            return res.json();
+        }).then((data) => {
+            this.setState({ databases: data.results });
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
     render() {
+        const getDatabases = this.state.databases.map((element) => 
+            <tr key={element.Database}>
+                <td></td>
+                <td>{element.Database}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        );
+
         return (
             <React.Fragment>
                 <div className="panel panel--light" id="panel-actions">
@@ -31,18 +65,7 @@ class Databases extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="checkbox" /></td><td>beta_wp</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" /></td><td>brown-cms2</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" /></td><td>rss-app</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox" /></td><td>cms2</td>
-                                    </tr>
+                                    {getDatabases}
                                 </tbody>
                             </table>
                         </nav>
