@@ -6,11 +6,16 @@ class Databases extends React.Component {
         super(props);
 
         this.state = {
-            databases: []
+            databases: [],
+            databaseName: ''
         };
     }
 
     componentWillMount() {
+        this.updateDatabasesList();
+    }
+
+    updateDatabasesList() {
         fetch('/databases?token=' + Auth.getToken(), {
             method: 'get',
             headers: new Headers({
@@ -25,11 +30,42 @@ class Databases extends React.Component {
         });
     }
 
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        if (this.state.databaseName !== '') {
+            fetch('/databases/' + this.state.databaseName, {
+                method: 'post',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'x-access-token': Auth.getToken()
+                })
+            }).then((res) => {
+                return res.json();
+            }).then(() => {
+                this.updateDatabasesList();
+            }).then(() => {
+                this.setState({ databaseName: '' });
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
+    }
+
     render() {
         const getDatabases = this.state.databases.map((element) => 
             <tr key={element.Database}>
-                <td></td>
-                <td>{element.Database}</td>
+                <td><input type="checkbox" className="panel__checkbox" name={"database-" + element.Database} /></td>
+                <td><a href={"/databases/" + element.Database}>{element.Database}</a></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -41,7 +77,12 @@ class Databases extends React.Component {
                 <div className="panel panel--light" id="panel-actions">
                     <h3 className="panel__title">Actions</h3>
                     <div className="panel__body">
-                        <button className="panel__button">Create new database</button>
+                        <form onSubmit={this.handleSubmit.bind(this)}>
+                            <label htmlFor="databaseNameInput">
+                                <input type="text" name="databaseName" size="40" className="panel__input" id="databaseNameInput" onChange={this.handleInputChange.bind(this)} />
+                            </label>
+                            <button className="panel__button" type="submit">Create new database</button>
+                        </form>
                     </div>
                 </div>
 
