@@ -101,7 +101,7 @@ class App extends Component {
                 <div className="content__title">Home</div>
                   <section className="content__body">
                       <Route exact path="/" component={Home} />
-                      <Route path="/databases" component={Databases} />
+                      <Route path="/databases" render={() => <Databases toggleLoginScreen={this.toggleLoginScreen} />} />
                       <Route path="/logout" component={Logout} />
                   </section>
               </main>

@@ -12,6 +12,7 @@ class Databases extends React.Component {
     }
 
     componentWillMount() {
+        this.props.toggleLoginScreen();
         this.updateDatabasesList();
     }
 
@@ -25,6 +26,7 @@ class Databases extends React.Component {
             return res.json();
         }).then((data) => {
             this.setState({ databases: data.results });
+            this.props.toggleLoginScreen();
         }).catch((err) => {
             console.error(err);
         });
@@ -52,6 +54,7 @@ class Databases extends React.Component {
             }).then((res) => {
                 return res.json();
             }).then(() => {
+                this.props.toggleLoginScreen();
                 this.updateDatabasesList();
             }).then(() => {
                 this.setState({ databaseName: '' });
