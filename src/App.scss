@@ -80,6 +80,10 @@ $primary-bg-color: #E64A19;
   flex-basis:1340px;
 }
 
+.panel--small {
+  flex-basis:202px;
+}
+
 .panel__button {
   outline:none;
   background-color:$primary-bg-color;
@@ -146,4 +150,16 @@ $primary-bg-color: #E64A19;
   width:100%;
   height: 300px;
   border:2px solid #e2e2e2;
+}
+
+.panel__select-wrapper {
+  display:inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  border:solid grey 1px;
+}
+
+.panel__select--no-overflow {
+  padding:10px;
+  margin: -5px -20px -5px -5px;
 }

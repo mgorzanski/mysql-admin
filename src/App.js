@@ -68,7 +68,7 @@ class App extends Component {
       mysqlPort,
       userIsLoggedIn
     });
-    this.toggleLoginScreen();
+    this.toggleLoadingScreen();
   }
 
   handleLogout = () => {
@@ -77,7 +77,7 @@ class App extends Component {
     }
   }
 
-  toggleLoginScreen = () => {
+  toggleLoadingScreen = () => {
     this.setState({ showLoadingScreen: !this.state.showLoadingScreen });
   }
 
@@ -102,14 +102,14 @@ class App extends Component {
                 <div className="content__title">Home</div>
                   <section className="content__body">
                       <Route exact path="/" component={Home} />
-                      <Route path="/databases" render={() => <Databases toggleLoginScreen={this.toggleLoginScreen} />} />
-                      <Route path="/sql" render={() => <Query toggleLoginScreen={this.toggleLoginScreen} />} />
+                      <Route path="/databases" render={() => <Databases toggleLoadingScreen={this.toggleLoadingScreen} />} />
+                      <Route path="/sql" render={() => <Query toggleLoadingScreen={this.toggleLoadingScreen} />} />
                       <Route path="/logout" component={Logout} />
                   </section>
               </main>
             </React.Fragment>
            ) : (
-            <Login onUserLogin={this.handleConnection} onSubmit={this.toggleLoginScreen} />
+            <Login onUserLogin={this.handleConnection} onSubmit={this.toggleLoadingScreen} />
            )}
         </div>
       </Router>
