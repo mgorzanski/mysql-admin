@@ -32,6 +32,7 @@ class App extends Component {
         }
       });
     }
+    this.setState({ showLoadingScreen: false });
   }
 
   checkConnectionState = () => {
@@ -63,12 +64,17 @@ class App extends Component {
       mysqlPort,
       userIsLoggedIn
     });
+    this.toggleLoginScreen();
   }
 
   handleLogout = () => {
     if (!Auth.tokenExists()) {
       this.setState({ userIsLoggedIn: false });
     }
+  }
+
+  toggleLoginScreen = () => {
+    this.setState({ showLoadingScreen: !this.state.showLoadingScreen });
   }
 
   render() {
@@ -78,25 +84,28 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          {showLoadingScreen ? [
-              <React.Fragment key="1">
-                Loading...
+          {showLoadingScreen ? (
+              <React.Fragment>
+                <div className="loading-screen">
+                  <img src={require('./loading.gif')} alt="Loading" />
+                </div>
               </React.Fragment>
-            ] : [ userIsLoggedIn ? [
-              <React.Fragment key="2">
-                <Nav onUserLogout={this.handleLogout} />
-                <main className="content">
-                  <div className="content__title">Home</div>
-                    <section className="content__body">
-                        <Route exact path="/" component={Home} />
-                        <Route path="/databases" component={Databases} />
-                        <Route path="/logout" component={Logout} />
-                    </section>
-                </main>
-              </React.Fragment>
-           ] : [
-            <Login key="3" onUserLogin={this.handleConnection} />
-           ]]}
+           ) : ""}
+          {userIsLoggedIn ? (
+            <React.Fragment>
+              <Nav onUserLogout={this.handleLogout} />
+              <main className="content">
+                <div className="content__title">Home</div>
+                  <section className="content__body">
+                      <Route exact path="/" component={Home} />
+                      <Route path="/databases" component={Databases} />
+                      <Route path="/logout" component={Logout} />
+                  </section>
+              </main>
+            </React.Fragment>
+           ) : (
+            <Login onUserLogin={this.handleConnection} onSubmit={this.toggleLoginScreen} />
+           )}
         </div>
       </Router>
     );

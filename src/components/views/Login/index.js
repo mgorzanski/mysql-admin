@@ -27,6 +27,7 @@ class Login extends React.Component {
 
     handleLogin = (event) => {
         event.preventDefault();
+        this.props.onSubmit();
         fetch('/connect', {
             method: 'post',
             headers: new Headers({

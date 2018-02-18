@@ -128,3 +128,16 @@ $primary-bg-color: #E64A19;
 .float-right {
   float:right;
 }
+
+.loading-screen {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width:100vw;
+  top:0;
+  flex-wrap: wrap;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+}
