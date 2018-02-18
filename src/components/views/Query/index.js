@@ -7,7 +7,9 @@ class Query extends React.Component {
 
         this.state = {
             'databases': [],
-            'query': ''
+            'query': '',
+            'canExecute': false,
+            'selectedDatabase': ''
         }
     }
 
@@ -23,6 +25,10 @@ class Query extends React.Component {
 
         this.setState({
             [name]: value
+        }, () => {
+            if (this.state.selectedDatabase !== '') {
+                this.setState({canExecute: true});
+            }
         });
     }
 
@@ -87,7 +93,7 @@ class Query extends React.Component {
                     <div className="panel__body">
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <textarea name="query" className="panel__textarea" value={this.state.query} onChange={this.handleInputChange.bind(this)}></textarea>
-                            <button className="panel__button" type="submit">Execute</button>
+                            { this.state.canExecute ? (<button className="panel__button" type="submit">Execute</button>) : (<button className="panel__button panel__button--disabled" type="submit" disabled>Execute</button>)}
                         </form>
                     </div>
                 </div>
