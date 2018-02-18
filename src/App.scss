@@ -76,7 +76,7 @@ $primary-bg-color: #E64A19;
   border:2px solid #e2e2e2;
 }
 
-#panel-actions, #panel-databases {
+.panel--big {
   flex-basis:1340px;
 }
 
@@ -140,4 +140,10 @@ $primary-bg-color: #E64A19;
   flex-wrap: wrap;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.panel__textarea {
+  width:100%;
+  height: 300px;
+  border:2px solid #e2e2e2;
 }

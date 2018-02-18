@@ -77,7 +77,7 @@ class Databases extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="panel panel--light" id="panel-actions">
+                <div className="panel panel--big panel--light">
                     <h3 className="panel__title">Actions</h3>
                     <div className="panel__body">
                         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -89,7 +89,7 @@ class Databases extends React.Component {
                     </div>
                 </div>
 
-                <div className="panel" id="panel-databases">
+                <div className="panel panel--big">
                     <h3 className="panel__title">Databases</h3>
                     <div className="panel__body">
                         <form>
