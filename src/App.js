@@ -17,14 +17,42 @@ class App extends Component {
       mysqlUser: '',
       mysqlPassword: '',
       mysqlPort: '',
-      userIsLoggedIn: false
+      userIsLoggedIn: false,
+      showLoadingScreen: true,
     };
   }
 
   componentWillMount() {
-    if (Auth.tokenExists()) {
-      this.setState({ userIsLoggedIn: true });
+    if (Auth.tokenExists() && Auth.tokenNotExpired()) {
+      this.checkConnectionState().then((res) => {
+        return JSON.parse(res);
+      }).then((res) => {
+        if (res.connectionEstablished) {
+          this.setState({ userIsLoggedIn: true, showLoadingScreen: false });
+        }
+      });
     }
+  }
+
+  checkConnectionState = () => {
+    return new Promise(function (resolve, reject) {
+      fetch('/connection', {
+        method: 'post',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'x-access-token': Auth.getToken()
+        })
+      }).then((res) => {
+        return res.json();
+      }).then((data) => {
+        if (data.connectionEstablished) {
+          resolve(JSON.stringify({ connectionEstablished: true }));
+        }
+        resolve(JSON.stringify({ connectionEstablished: false }));
+      }).catch((err) => {
+        reject(Error("Server error"));
+      });
+    });
   }
 
   handleConnection = (mysqlHost, mysqlUser, mysqlPassword, mysqlPort, userIsLoggedIn) => {
@@ -45,25 +73,30 @@ class App extends Component {
 
   render() {
     const userIsLoggedIn = this.state.userIsLoggedIn;
+    const showLoadingScreen = this.state.showLoadingScreen;
 
     return (
       <Router>
         <div className="App">
-          {userIsLoggedIn ? (
-          <React.Fragment>
-            <Nav onUserLogout={this.handleLogout} />
-            <main className="content">
-              <div className="content__title">Home</div>
-                <section className="content__body">
-                    <Route exact path="/" component={Home} />
-                    <Route path="/databases" component={Databases} />
-                    <Route path="/logout" component={Logout} />
-                </section>
-            </main>
-          </React.Fragment>
-          ) : (
-            <Login onUserLogin={this.handleConnection} />
-          )}
+          {showLoadingScreen ? [
+              <React.Fragment key="1">
+                Loading...
+              </React.Fragment>
+            ] : [ userIsLoggedIn ? [
+              <React.Fragment key="2">
+                <Nav onUserLogout={this.handleLogout} />
+                <main className="content">
+                  <div className="content__title">Home</div>
+                    <section className="content__body">
+                        <Route exact path="/" component={Home} />
+                        <Route path="/databases" component={Databases} />
+                        <Route path="/logout" component={Logout} />
+                    </section>
+                </main>
+              </React.Fragment>
+           ] : [
+            <Login key="3" onUserLogin={this.handleConnection} />
+           ]]}
         </div>
       </Router>
     );

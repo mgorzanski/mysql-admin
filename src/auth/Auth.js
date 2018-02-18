@@ -1,3 +1,5 @@
+const jwtDecode = require('jwt-decode');
+
 class Auth {
     static authenticateUser(token) {
         localStorage.setItem('token', token);
@@ -13,6 +15,16 @@ class Auth {
 
     static getToken() {
         return localStorage.getItem('token');
+    }
+
+    static tokenNotExpired() {
+        let token = this.getToken();
+        let decoded = jwtDecode(token);
+
+        if (decoded.exp < new Date().getTime() / 1000) {
+            return false;
+        }
+        return true;
     }
 }
 

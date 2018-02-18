@@ -2,8 +2,8 @@ const connection = require('./connection');
 const mysql = require('mysql')
 const jwt = require('jsonwebtoken');
 
-module.exports = function (app) {
-    app.post('/connect', function (req, res) {
+module.exports = function (router) {
+    router.post('/connect', function (req, res) {
         let newConenction = mysql.createConnection({
             host : req.body.host,
             user : req.body.user,
@@ -24,7 +24,7 @@ module.exports = function (app) {
                 host: req.body.host
             };
 
-            var token = jwt.sign(payload, app.get('superSecret'), {
+            var token = jwt.sign(payload, router.get('superSecret'), {
                 expiresIn: '1440m'
             });
 

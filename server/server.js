@@ -16,6 +16,9 @@ require('./app/middlewares/checkToken')(apiRoutes, app);
 require('./app/queries/query')(apiRoutes);
 require('./app/queries/databases')(apiRoutes);
 
+const connection = require('./app/connection');
+connection.checkConnectionState(apiRoutes);
+
 app.use('/', apiRoutes);
 
 app.listen(port);
