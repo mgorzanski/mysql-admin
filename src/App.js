@@ -29,10 +29,13 @@ class App extends Component {
       }).then((res) => {
         if (res.connectionEstablished) {
           this.setState({ userIsLoggedIn: true, showLoadingScreen: false });
+        } else {
+          this.setState({ showLoadingScreen: false });
         }
       });
+    } else {
+      this.setState({ showLoadingScreen: false });
     }
-    this.setState({ showLoadingScreen: false });
   }
 
   checkConnectionState = () => {
