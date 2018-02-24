@@ -4,10 +4,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 $primary-bg-color: #E64A19;
+$primary-nav-width: 200px;
 
 .primary-nav {
     float:left;
-    width:130px;
+    width:$primary-nav-width;
     background-color: #1d1d1d;
     height: 100vh;
 }
@@ -21,18 +22,33 @@ $primary-bg-color: #E64A19;
 .primary-nav__primary-menu li {
     margin: 7px;
     border-bottom:1px solid #3a3a3a;
-    padding:4px;
+    padding:10px;
 }
 
 .primary-nav__primary-menu li a {
-    color:#c4c4c4;
+    color:#c5c5c5;
     text-decoration: none;
     font-family: 'Lato', sans-serif;
-    font-size:1.1em;
+    font-size:1.15em;
 }
 
 .primary-nav__primary-menu li a:hover {
-    color:#dadada;
+    color:#ececec;
+}
+
+.primary-nav__item-active:visited, .primary-nav__item-active:link, .primary-nav__item-active:hover {
+    color:#ececec;
+    text-decoration: none;
+}
+
+.primary-nav__item-icon {
+    display:inline-block;
+    width:22px;
+}
+
+.primary-nav__item-title {
+    display:inline-block;
+    margin-left:15px;
 }
 
 .content {
