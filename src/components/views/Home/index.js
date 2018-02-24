@@ -4,7 +4,10 @@ class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <p>Home</p>
+                <div className="content__title">Home</div>
+                <section className="content__body">
+                    <p>Home</p>
+                </section>
             </React.Fragment>
         );
     }

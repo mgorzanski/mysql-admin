@@ -77,44 +77,47 @@ class Databases extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="panel panel--big panel--light">
-                    <h3 className="panel__title">Actions</h3>
-                    <div className="panel__body">
-                        <form onSubmit={this.handleSubmit.bind(this)}>
-                            <label htmlFor="databaseNameInput">
-                                <input type="text" name="databaseName" size="40" className="panel__input" id="databaseNameInput" onChange={this.handleInputChange.bind(this)} />
-                            </label>
-                            <button className="panel__button" type="submit">Create new database</button>
-                        </form>
+                <div className="content__title">Databases</div>
+                <section className="content__body">
+                    <div className="panel panel--big panel--light">
+                        <h3 className="panel__title">Actions</h3>
+                        <div className="panel__body">
+                            <form onSubmit={this.handleSubmit.bind(this)}>
+                                <label htmlFor="databaseNameInput">
+                                    <input type="text" name="databaseName" size="40" className="panel__input" id="databaseNameInput" onChange={this.handleInputChange.bind(this)} />
+                                </label>
+                                <button className="panel__button" type="submit">Create new database</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <div className="panel panel--big">
-                    <h3 className="panel__title">Databases</h3>
-                    <div className="panel__body">
-                        <form>
-                            <input type="search" name="q" size="24" className="panel__input" />
-                            <button className="panel__button">Search</button>
-                            <button className="panel__button panel__button--disabled float-right" disabled>Delete selected databases</button>
-                        </form>
-                        <nav className="panel__nav">
-                            <table className="panel__table">
-                                <thead>
-                                    <tr>
-                                        <th style={{width: '7px'}}></th>
-                                        <th>Name</th>
-                                        <th>Tables</th>
-                                        <th>Records</th>
-                                        <th>Data</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {getDatabases}
-                                </tbody>
-                            </table>
-                        </nav>
+                    <div className="panel panel--big">
+                        <h3 className="panel__title">Databases</h3>
+                        <div className="panel__body">
+                            <form>
+                                <input type="search" name="q" size="24" className="panel__input" />
+                                <button className="panel__button">Search</button>
+                                <button className="panel__button panel__button--disabled float-right" disabled>Delete selected databases</button>
+                            </form>
+                            <nav className="panel__nav">
+                                <table className="panel__table">
+                                    <thead>
+                                        <tr>
+                                            <th style={{width: '7px'}}></th>
+                                            <th>Name</th>
+                                            <th>Tables</th>
+                                            <th>Records</th>
+                                            <th>Data</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {getDatabases}
+                                    </tbody>
+                                </table>
+                            </nav>
+                        </div>
                     </div>
-                </div>
+                </section>
             </React.Fragment>
         );
     }

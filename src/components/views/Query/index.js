@@ -83,26 +83,29 @@ class Query extends React.Component {
 
         return (
             <React.Fragment>
-            <div className="panel panel--small" id="panel-select-db">
-                    <h3 className="panel__title">Select database</h3>
-                    <div className="panel__body">
-                        <div className="panel__select-wrapper">
-                            <select name="selectedDatabase" size="16" className="panel__select panel__select--no-overflow" onChange={this.handleInputChange.bind(this)}>
-                                {databasesList}
-                            </select>
+                <div className="content__title">SQL</div>
+                <section className="content__body">
+                    <div className="panel panel--small" id="panel-select-db">
+                        <h3 className="panel__title">Select database</h3>
+                        <div className="panel__body">
+                            <div className="panel__select-wrapper">
+                                <select name="selectedDatabase" size="16" className="panel__select panel__select--no-overflow" onChange={this.handleInputChange.bind(this)}>
+                                    {databasesList}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="panel panel--big" id="panel-query">
-                    <h3 className="panel__title">Write raw SQL</h3>
-                    <div className="panel__body">
-                        <form onSubmit={this.handleSubmit.bind(this)}>
-                            <textarea name="query" className="panel__textarea" value={this.state.query} onChange={this.handleInputChange.bind(this)}></textarea>
-                            { this.state.canExecute ? (<button className="panel__button" type="submit">Execute</button>) : (<button className="panel__button panel__button--disabled" type="submit" disabled>Execute</button>)}
-                        </form>
+                    <div className="panel panel--big" id="panel-query">
+                        <h3 className="panel__title">Write raw SQL</h3>
+                        <div className="panel__body">
+                            <form onSubmit={this.handleSubmit.bind(this)}>
+                                <textarea name="query" className="panel__textarea" value={this.state.query} onChange={this.handleInputChange.bind(this)}></textarea>
+                                { this.state.canExecute ? (<button className="panel__button" type="submit">Execute</button>) : (<button className="panel__button panel__button--disabled" type="submit" disabled>Execute</button>)}
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </section>
             </React.Fragment>
         );
     }

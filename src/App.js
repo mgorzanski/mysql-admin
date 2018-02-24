@@ -99,13 +99,10 @@ class App extends Component {
             <React.Fragment>
               <Nav onUserLogout={this.handleLogout} />
               <main className="content">
-                <div className="content__title">Home</div>
-                  <section className="content__body">
-                      <Route exact path="/" component={Home} />
-                      <Route path="/databases" render={() => <Databases toggleLoadingScreen={this.toggleLoadingScreen} />} />
-                      <Route path="/sql" render={() => <Query toggleLoadingScreen={this.toggleLoadingScreen} />} />
-                      <Route path="/logout" component={Logout} />
-                  </section>
+                <Route exact path="/" component={Home} />
+                <Route path="/databases" render={() => <Databases toggleLoadingScreen={this.toggleLoadingScreen} />} />
+                <Route path="/sql" render={() => <Query toggleLoadingScreen={this.toggleLoadingScreen} />} />
+                <Route path="/logout" component={Logout} />
               </main>
             </React.Fragment>
            ) : (
