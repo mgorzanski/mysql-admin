@@ -5,10 +5,10 @@ module.exports = {
         connection = newConnection;
     },
     getConnection: function () {
-        if(connection) {
+        if(connection !== undefined) {
             return connection;
         } else {
-            return { query: function() { console.error ('No connection established yet') }};
+            console.error('No connection established yet');
         }
     },
     checkConnectionState: function (app) {

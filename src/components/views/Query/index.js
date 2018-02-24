@@ -1,5 +1,6 @@
 import React from 'react';
 import Auth from './../../../auth/Auth';
+import { changeDatabase } from './../../../utils/HelperQueries';
 
 class Query extends React.Component {
     constructor(props) {
@@ -27,7 +28,12 @@ class Query extends React.Component {
             [name]: value
         }, () => {
             if (this.state.selectedDatabase !== '') {
-                this.setState({canExecute: true});
+                changeDatabase(this.state.selectedDatabase)
+                    .then((res) => {
+                        if (res.status === 200) {
+                            this.setState({canExecute: true});
+                        }
+                    });
             }
         });
     }

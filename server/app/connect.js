@@ -33,4 +33,23 @@ module.exports = function (router) {
             res.status(200).json({ connected: true, token: token });
         });
     });
+
+    router.post('/change-db', function (req, res) {
+        let conn = connection.getConnection();
+
+        if(req.body.databaseName === undefined) {
+            res.status(400).json({ message: "Database name not specified!" });
+            return;
+        }
+
+        conn.changeUser({
+            database: req.body.databaseName
+        }, function(err) {
+            if (err) {
+                res.status(400).json({ message: "Error when changing database." });
+            } else {
+                res.status(200).json({ message: "Successfully changed database." });
+            }
+        });
+    });
 };
