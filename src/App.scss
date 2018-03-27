@@ -1,10 +1,9 @@
 @import '~normalize.css/normalize';
 @import url('https://fonts.googleapis.com/css?family=Lato');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Mukta+Malar');
+@import url('https://fonts.googleapis.com/css?family=Padauk:700');
 
-$primary-bg-color: #E64A19;
+$primary-bg-color: #FF5722;
 $primary-nav-width: 200px;
 
 .primary-nav {
@@ -61,10 +60,11 @@ $primary-nav-width: 200px;
     display:flex;
     font-weight: bold;
     padding:9px;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Padauk', sans-serif;
     text-transform: uppercase;
     background-color: $primary-bg-color;
     font-size:1.3em;
+    border-bottom:4px solid #1f1f1f;
 }
 
 .content__body {
@@ -82,7 +82,7 @@ $primary-nav-width: 200px;
 
 .panel__title {
   font-size:1.25em;
-  font-family: 'Mukta Malar', sans-serif;
+  font-family: 'Padauk', sans-serif;
   background-color: $primary-bg-color;
   padding:6px;
   margin:0;
