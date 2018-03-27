@@ -10,7 +10,8 @@ class Query extends React.Component {
             'databases': [],
             'query': '',
             'canExecute': false,
-            'selectedDatabase': ''
+            'selectedDatabase': '',
+            'result': ''
         }
     }
 
@@ -54,7 +55,7 @@ class Query extends React.Component {
             return res.json();
         }).then((data) => {
             this.props.toggleLoadingScreen();
-            console.log(data);
+            this.setState({ result: data });
         }).catch((err) => {
             console.err(err);
         });
@@ -81,11 +82,51 @@ class Query extends React.Component {
            <option key={element.Database} value={element.Database}>{element.Database}</option>
         );
 
+        const QueryResultHeaders = () => {
+            let headers = [];
+            for (let header in this.state.result[0]) {
+                headers.push(<th key={header}>{header}</th>);
+            }
+
+            return (<tr>{headers}</tr>);
+        }
+        
+        const QueryResultBody = () => {
+            let body = [];
+            const result = this.state.result.slice();
+            for (let i = 0; i < result.length; i++) {
+                let row = [];
+                for (let key in result[i]) {
+                    row.push(<td key={key}>{result[i][key]}</td>);
+                }
+                body.push(
+                    <tr key={i}>
+                        {row}
+                    </tr>
+                );
+            }
+
+            return body;
+        }
+
+        const Results = () => {
+            return (
+                <table className="panel__table">
+                    <thead>
+                        <QueryResultHeaders />
+                    </thead>
+                    <tbody>
+                        <QueryResultBody />
+                    </tbody>
+                </table>
+            );
+        }
+
         return (
             <React.Fragment>
                 <div className="content__title">SQL</div>
                 <section className="content__body">
-                    <div className="panel panel--small" id="panel-select-db">
+                    <div className="panel panel--small">
                         <h3 className="panel__title">Select database</h3>
                         <div className="panel__body">
                             <div className="panel__select-wrapper">
@@ -96,7 +137,7 @@ class Query extends React.Component {
                         </div>
                     </div>
 
-                    <div className="panel panel--big" id="panel-query">
+                    <div className="panel panel--big">
                         <h3 className="panel__title">Write raw SQL</h3>
                         <div className="panel__body">
                             <form onSubmit={this.handleSubmit.bind(this)}>
@@ -105,6 +146,15 @@ class Query extends React.Component {
                             </form>
                         </div>
                     </div>
+
+                    { this.state.result !== '' ? (
+                        <div className="panel panel--big panel--light">
+                        <h3 className="panel__title">Query result</h3>
+                        <div className="panel__body">
+                            <Results />
+                        </div>
+                    </div>
+                    ) : ('') }
                 </section>
             </React.Fragment>
         );
